@@ -1,4 +1,11 @@
 {
   "name": "teste-agente-ia",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node script.js"
+  },
+  "dependencies": {
+    "playwright": "^1.54.1"
+  }
 }
