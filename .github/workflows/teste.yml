@@ -11,10 +11,10 @@ jobs:
       - name: Baixar o projeto
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
       - name: Instalar dependências
         run: npm install
