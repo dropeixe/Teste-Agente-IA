@@ -24,3 +24,11 @@ jobs:
 
       - name: Executar script
         run: node script.js
+
+      - name: Upload dos arquivos
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio
+          path: |
+            screenshots
+            logs
