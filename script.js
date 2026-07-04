@@ -1,8 +1,10 @@
-const { chromium } = require('playwright');
+const { chromium } = require("playwright");
+
+console.log("VERSAO 2 - 04/07/2026 - 00:45");
 
 (async () => {
 
-    console.log("Iniciando...");
+    console.log("Abrindo Chrome...");
 
     const browser = await chromium.launch({
         headless: true
@@ -12,6 +14,6 @@ const { chromium } = require('playwright');
 
     await browser.close();
 
-    console.log("Finalizado.");
+    console.log("Fim.");
 
 })();
