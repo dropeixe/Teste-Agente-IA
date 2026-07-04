@@ -1,5 +1,17 @@
-console.log("SCRIPT EXECUTOU!");
+const { chromium } = require('playwright');
 
-setTimeout(() => {
-    console.log("FIM");
-}, 5000);
+(async () => {
+
+    console.log("Iniciando...");
+
+    const browser = await chromium.launch({
+        headless: true
+    });
+
+    console.log("Chrome aberto.");
+
+    await browser.close();
+
+    console.log("Finalizado.");
+
+})();
