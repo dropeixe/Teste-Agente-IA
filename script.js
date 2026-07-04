@@ -1,143 +1,53 @@
-const { chromium } = require("playwright");
+const { chromium } = require('playwright');
+const fs = require('fs');
 
-const fs = require("fs");
+(async () => {
+  console.log('===================================');
+  console.log('AI Agent Tester');
+  console.log('===================================');
 
-const config = require("./config.json");
+  // Garante que a pasta exista
+  if (!fs.existsSync('screenshots')) {
+    fs.mkdirSync('screenshots');
+  }
 
-const {
+  console.log('Abrindo navegador...');
 
-    log,
+  const browser = await chromium.launch({
+    headless: true
+  });
 
-    esperar,
-
-    screenshot,
-
-    salvarTexto
-
-}=require("./utils");
-
-(async()=>{
-
-    log("================================");
-
-    log("AI Agent Tester");
-
-    log("================================");
-
-    const browser=await chromium.launch({
-
-        headless:true
-
-    });
-
-    const page=await browser.newPage({
-
-        viewport:{
-
-            width:1440,
-
-            height:900
-
-        }
-
-    });
-
-    log("Abrindo site...");
-
-    await page.goto(
-
-        config.url,
-
-        {
-
-            waitUntil:"networkidle"
-
-        }
-
-    );
-
-    await esperar(5000);
-
-    log("Site carregado.");
-
-    await screenshot(
-
-        page,
-
-        "homepage"
-
-    );
-
-    salvarTexto(
-
-        "titulo.txt",
-
-        await page.title()
-
-    );
-
-    const frames=page.frames();
-
-    let texto="";
-
-    texto+="TOTAL DE IFRAMES: ";
-
-    texto+=frames.length;
-
-    texto+="\n\n";
-
-    for(const frame of frames){
-
-        texto+=frame.url();
-
-        texto+="\n";
-
+  const page = await browser.newPage({
+    viewport: {
+      width: 1440,
+      height: 900
     }
+  });
 
-    salvarTexto(
+  console.log('Abrindo Google Sites...');
 
-        "frames.txt",
+  await page.goto(
+    'https://sites.google.com/view/ghl-agent-test/iframe',
+    {
+      waitUntil: 'domcontentloaded',
+      timeout: 60000
+    }
+  );
 
-        texto
+  console.log('Esperando carregamento...');
 
-    );
+  await page.waitForTimeout(8000);
 
-    const botoes=await page.locator("button").allTextContents();
+  console.log('Salvando screenshot...');
 
-    salvarTexto(
+  await page.screenshot({
+    path: 'screenshots/homepage.png',
+    fullPage: true
+  });
 
-        "buttons.txt",
+  console.log('Fechando navegador...');
 
-        botoes.join("\n")
+  await browser.close();
 
-    );
-
-    const inputs=await page.locator("input").evaluateAll(
-
-        els=>els.map(e=>
-
-            e.placeholder ||
-
-            e.name ||
-
-            e.type ||
-
-            "sem identificação"
-
-        )
-
-    );
-
-    salvarTexto(
-
-        "inputs.txt",
-
-        inputs.join("\n")
-
-    );
-
-    log("Finalizado.");
-
-    await browser.close();
-
+  console.log('Teste finalizado com sucesso!');
 })();
