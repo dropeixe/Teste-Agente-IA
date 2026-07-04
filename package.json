@@ -1,7 +1,8 @@
 {
-  "name": "teste-agente-ia",
+  "name": "ai-agent-tester",
   "version": "1.0.0",
-  "private": true,
+  "description": "Ferramenta para testes automáticos de Agentes de IA",
+  "main": "script.js",
   "scripts": {
     "start": "node script.js"
   },
