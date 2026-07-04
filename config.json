@@ -1,0 +1,11 @@
+{
+    "url":"https://sites.google.com/view/teste-gen-energy/teste-agente-de-ia",
+
+    "nome":"Pedro",
+
+    "telefone":"11999999999",
+
+    "tempoEntreMensagens":30,
+
+    "timeout":60000
+}
